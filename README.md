@@ -1,43 +1,61 @@
 # Distributed File Conversion Service
 
-Done By:
-Chiranthan Shankar - PES2UG24CS137
+A client-server system that converts DOCX files to PDF over a network. Clients upload a file over TCP, the server queues the job, and a pool of worker threads converts it and returns the result.
 
-Hamza Shabbir Sahapurwala - PES2UG24CS177
+## Authors
 
-# Setup
+- Chiranthan Shankar (PES2UG24CS137)
 
-The project consists of 3 files:
-- Server
-- Conversion
-- Client
+- Hamza Shabbir Sahapurwala (PES2UG24CS177)
 
-# Working
+## How It Works
 
-> You need to keep the server and the client in the same internet for this project to work.
+1. The client connects to the server and uploads a `.docx` file.
+2. The server adds the job to a queue.
+3. One of three worker threads picks up the job and converts the file.
+4. The server sends the converted PDF back to the client.
 
-Step 1:
+The server handles multiple clients at once, and the queue ensures jobs are processed in order.
 
-Run the server.
+## Project Structure
 
-`python server.py`
+| File | Purpose |
+| --- | --- |
+| `server.py` | TCP server, job queue and worker threads |
+| `conversion.py` | DOCX to PDF conversion |
+| `client.py` | Command-line client for uploading files |
+| `performancegraph.py` | Plots results from `performance.csv` |
+| `Testfiles/` | Sample files for testing |
 
-Step 2:
+## Requirements
 
-Take the IP address of the server and in the client, update it.
+- Python 3.8+
+- `python-docx`
+- `reportlab`
 
-Step 3:
+```
+pip install python-docx reportlab
+```
 
-Run the client.
+## Usage
 
-`python client.py`
+Start the server (listens on port 5001):
 
-Step 4:
+```
+python server.py
+```
 
-Send any DOCX files via the client terminal (Give the path of the file) and within seconds, your converted file will be returned.
+Set the server's IP address in `client.py`, then run the client:
 
-Step 5:
+```
+python client.py
+```
 
-Enjoy your new System of Conversion!
+Enter the path to a `.docx` file when prompted. The converted PDF is returned to the client.
 
-Thank You!
+The client and server must be on the same network.
+
+## Limitations
+
+- Only `.docx` to `.pdf` conversion is implemented.
+- Conversion extracts paragraph text only. Images, tables and complex formatting are not preserved.

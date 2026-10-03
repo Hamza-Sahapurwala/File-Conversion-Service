@@ -25,7 +25,7 @@ The server handles multiple clients at once, and the queue ensures jobs are proc
 | `conversion.py` | DOCX to PDF conversion |
 | `client.py` | Command-line client for uploading files |
 | `performancegraph.py` | Plots results from `performance.csv` |
-| `Testfiles/` | Sample files for testing |
+| `TestFiles/` | Sample files for testing |
 | `Documents/`| Contains Project Report |
 
 ## Requirements
